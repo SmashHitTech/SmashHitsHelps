@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Github, Globe } from "lucide-react";
+import { Github, Globe, Search, X } from "lucide-react";
 import { CATEGORIES, GCP_DATA } from "../content";
 import { FlowDiagram } from "../components/FlowDiagram";
 import { ProductCard } from "../components/ProductCard";
@@ -39,164 +39,311 @@ export default function GCPNavigator() {
 
   return (
     <div style={{
-      height: "100vh", width: "100%", display: "flex", flexDirection: "column",
-      background: "var(--bg-primary, #0d1117)", color: "var(--text-primary, #c9d1d9)",
-      fontFamily: "'DM Sans', sans-serif", overflow: "hidden",
+      height: "100vh",
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      background: "var(--bg-0)",
+      color: "var(--text-1)",
+      overflow: "hidden",
     }}>
       <GlobalStyles />
 
-      <div style={{ padding: "16px 24px 12px", borderBottom: "1px solid var(--bg-tertiary)", flexShrink: 0 }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 16, marginBottom: 12, flexWrap: "wrap" }}>
-          <div style={{ display: "flex", flexDirection: "column", gap: 8, minWidth: 0 }}>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 12, flexWrap: "wrap" }}>
-              <h1 style={{ fontSize: 20, fontWeight: 700, fontFamily: "'Space Mono', monospace", letterSpacing: "-0.03em", margin: 0 }}>GCP Navigator</h1>
-              <span style={{ fontSize: 11, opacity: 0.4, fontFamily: "'DM Mono', monospace" }}>hover nodes for context · click products below</span>
-            </div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, flexWrap: "wrap" }}>
-              <span style={{ fontSize: 11, opacity: 0.55, fontFamily: "'DM Sans', sans-serif" }}>
-                By Lydia Thomas for{" "}
-                <a href="https://makeitasmash.com/" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", fontWeight: 600, textDecoration: "underline", textUnderlineOffset: 2 }}>
-                  Smash Hit Technologies
-                </a>
+      {/* Header */}
+      <header style={{
+        padding: "20px 32px 0",
+        borderBottom: "1px solid var(--border)",
+        flexShrink: 0,
+        background: "var(--bg-0)",
+      }}>
+        <div style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+          gap: 24,
+          marginBottom: 16,
+          flexWrap: "wrap",
+        }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 4, minWidth: 0 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+              <div style={{
+                width: 28, height: 28, borderRadius: 8,
+                background: "linear-gradient(135deg, #4285F4, #34A853 50%, #FBBC04 75%, #EA4335)",
+                flexShrink: 0,
+              }} />
+              <h1 style={{
+                fontSize: 22,
+                fontWeight: 600,
+                letterSpacing: "-0.02em",
+                margin: 0,
+                color: "var(--text-1)",
+              }}>
+                GCP Navigator
+              </h1>
+              <span className="eyebrow" style={{ marginLeft: 4 }}>
+                Decision guide
               </span>
-              <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <a
-                  href="https://github.com/SmashHitTech/SmashHitsHelps"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Smash Hits Helps on GitHub"
-                  title="GitHub — SmashHitsHelps"
-                  style={{
-                    display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    width: 36, height: 36, borderRadius: 10,
-                    background: "var(--bg-secondary)", border: "1px solid var(--bg-tertiary)",
-                    color: "var(--text-secondary)", transition: "color 0.15s ease, border-color 0.15s ease, background 0.15s ease",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "var(--text-primary)"; e.currentTarget.style.borderColor = "var(--text-secondary)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-secondary)"; e.currentTarget.style.borderColor = "var(--bg-tertiary)"; }}
-                >
-                  <Github size={18} strokeWidth={2} aria-hidden />
-                </a>
-                <a
-                  href="https://makeitasmash.com/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Smash Hit Technologies website"
-                  title="makeitasmash.com"
-                  style={{
-                    display: "inline-flex", alignItems: "center", justifyContent: "center",
-                    width: 36, height: 36, borderRadius: 10,
-                    background: "var(--bg-secondary)", border: "1px solid var(--bg-tertiary)",
-                    color: "var(--text-secondary)", transition: "color 0.15s ease, border-color 0.15s ease",
-                  }}
-                  onMouseEnter={(e) => { e.currentTarget.style.color = "var(--text-primary)"; e.currentTarget.style.borderColor = "var(--text-secondary)"; }}
-                  onMouseLeave={(e) => { e.currentTarget.style.color = "var(--text-secondary)"; e.currentTarget.style.borderColor = "var(--bg-tertiary)"; }}
-                >
-                  <Globe size={18} strokeWidth={2} aria-hidden />
-                </a>
-              </div>
             </div>
+            <p style={{ fontSize: 12.5, color: "var(--text-3)", margin: 0, paddingLeft: 40 }}>
+              By Lydia Thomas for{" "}
+              <a
+                href="https://makeitasmash.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "var(--text-2)", fontWeight: 500, textDecoration: "none", borderBottom: "1px dashed var(--border-strong)" }}
+              >
+                Smash Hit Technologies
+              </a>
+            </p>
           </div>
-          <input
-            type="text"
-            placeholder="Search products..."
-            value={searchTerm}
-            onChange={(e) => { setSearchTerm(e.target.value); if (e.target.value.length >= 2) setActiveCategory(null); }}
-            style={{
-              background: "var(--bg-secondary)", border: "1px solid var(--bg-tertiary)", borderRadius: 8,
-              padding: "8px 14px", color: "var(--text-primary)", fontSize: 13, width: 220, outline: "none", fontFamily: "'DM Sans', sans-serif",
-            }}
-          />
+
+          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+            <div style={{ position: "relative" }}>
+              <Search
+                size={15}
+                strokeWidth={2}
+                style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-3)", pointerEvents: "none" }}
+                aria-hidden
+              />
+              <input
+                type="text"
+                placeholder="Search products, descriptions, use cases…"
+                value={searchTerm}
+                onChange={(e) => { setSearchTerm(e.target.value); if (e.target.value.length >= 2) setActiveCategory(null); }}
+                className="surface-input"
+              />
+              {searchTerm && (
+                <button
+                  aria-label="Clear search"
+                  onClick={() => setSearchTerm("")}
+                  style={{
+                    position: "absolute", right: 8, top: "50%", transform: "translateY(-50%)",
+                    background: "transparent", border: "none", color: "var(--text-3)",
+                    cursor: "pointer", padding: 4, display: "inline-flex",
+                  }}
+                >
+                  <X size={14} />
+                </button>
+              )}
+            </div>
+            <a
+              href="https://github.com/SmashHitTech/SmashHitsHelps"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Smash Hits Helps on GitHub"
+              title="GitHub — SmashHitsHelps"
+              className="icon-btn"
+            >
+              <Github size={16} strokeWidth={2} aria-hidden />
+            </a>
+            <a
+              href="https://makeitasmash.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Smash Hit Technologies website"
+              title="makeitasmash.com"
+              className="icon-btn"
+            >
+              <Globe size={16} strokeWidth={2} aria-hidden />
+            </a>
+          </div>
         </div>
-        <div style={{ display: "flex", gap: 6, overflowX: "auto", paddingBottom: 4 }}>
+
+        {/* Category bar */}
+        <div style={{
+          display: "flex",
+          gap: 6,
+          overflowX: "auto",
+          paddingBottom: 14,
+          marginLeft: -4,
+          paddingLeft: 4,
+        }}>
+          <button
+            onClick={() => { setActiveCategory(null); setSearchTerm(""); }}
+            className="pill"
+            data-active={activeCategory === null && searchTerm.length < 2}
+          >
+            All categories
+          </button>
           {CATEGORIES.map(([key, cat]) => (
             <button
               key={key}
               onClick={() => { setActiveCategory(key === activeCategory ? null : key); setSearchTerm(""); }}
-              style={{
-                padding: "7px 14px", borderRadius: 8, border: "none",
-                background: activeCategory === key ? cat.color : "var(--bg-secondary)",
-                color: activeCategory === key ? "#fff" : "var(--text-secondary)",
-                cursor: "pointer", fontSize: 12, fontWeight: 600, whiteSpace: "nowrap",
-                transition: "all 0.15s ease", fontFamily: "'DM Sans', sans-serif",
-                display: "flex", alignItems: "center", gap: 6,
-              }}
+              className="pill"
+              data-active={activeCategory === key}
             >
-              <span style={{ fontSize: 14 }}>{cat.icon}</span>{cat.label}
+              <span className="dot" style={{ background: cat.color }} />
+              {cat.label}
             </button>
           ))}
         </div>
-      </div>
+      </header>
 
-      <div ref={contentRef} style={{ flex: 1, overflow: "auto", padding: "16px 24px" }}>
+      {/* Content */}
+      <div ref={contentRef} style={{ flex: 1, overflow: "auto", padding: "24px 32px 40px" }}>
         {searchTerm.length >= 2 && (
-          <div style={{ animation: "fadeIn 0.2s ease" }}>
-            <div style={{ fontSize: 12, opacity: 0.5, marginBottom: 12, fontFamily: "'DM Mono', monospace" }}>
+          <div style={{ animation: "fadeIn 0.2s ease", maxWidth: 980, margin: "0 auto" }}>
+            <div className="eyebrow" style={{ marginBottom: 14 }}>
               {searchResults.length} result{searchResults.length !== 1 ? "s" : ""} for "{searchTerm}"
             </div>
             {searchResults.map(p => (
               <div key={p.name} style={{ marginBottom: 4 }}>
-                <div style={{ fontSize: 10, color: p.catColor, fontWeight: 600, marginBottom: 2, fontFamily: "'DM Mono', monospace", textTransform: "uppercase", letterSpacing: "0.08em" }}>{p.catLabel}</div>
+                <div className="eyebrow" style={{ color: p.catColor, marginBottom: 4 }}>{p.catLabel}</div>
                 <ProductCard product={p} color={p.catColor} isExpanded={expandedProducts.has(p.name)} onToggle={() => toggleProduct(p.name)} />
               </div>
             ))}
-            {searchResults.length === 0 && <div style={{ textAlign: "center", padding: 40, opacity: 0.4 }}>No matching products</div>}
+            {searchResults.length === 0 && (
+              <div style={{ textAlign: "center", padding: 64, color: "var(--text-3)" }}>
+                <div style={{ fontSize: 14, marginBottom: 4 }}>No matching products</div>
+                <div style={{ fontSize: 12.5 }}>Try a broader term or browse by category</div>
+              </div>
+            )}
           </div>
         )}
 
         {!activeCategory && searchTerm.length < 2 && (
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))", gap: 12, animation: "fadeIn 0.2s ease" }}>
-            {CATEGORIES.map(([key, cat]) => (
-              <div
-                key={key}
-                onClick={() => setActiveCategory(key)}
-                style={{ background: "var(--bg-secondary)", borderRadius: 12, padding: 20, cursor: "pointer", borderTop: `3px solid ${cat.color}`, transition: "transform 0.15s ease, box-shadow 0.15s ease" }}
-                onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 24px ${cat.color}22`; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
-              >
-                <div style={{ fontSize: 28, marginBottom: 8 }}>{cat.icon}</div>
-                <div style={{ fontWeight: 700, fontSize: 16, fontFamily: "'Space Mono', monospace", marginBottom: 6 }}>{cat.label}</div>
-                <div style={{ fontSize: 12, opacity: 0.5 }}>{cat.products.length} products</div>
-                <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 4 }}>
-                  {cat.products.slice(0, 4).map(p => (
-                    <span key={p.name} style={{ fontSize: 10, padding: "3px 8px", background: `${cat.color}18`, color: cat.color, borderRadius: 12, fontFamily: "'DM Mono', monospace" }}>{p.name}</span>
-                  ))}
-                  {cat.products.length > 4 && <span style={{ fontSize: 10, padding: "3px 8px", opacity: 0.4 }}>+{cat.products.length - 4}</span>}
-                </div>
-              </div>
-            ))}
+          <div style={{ animation: "fadeIn 0.2s ease", maxWidth: 1240, margin: "0 auto" }}>
+            <div style={{ marginBottom: 20 }}>
+              <h2 style={{ fontSize: 18, fontWeight: 600, letterSpacing: "-0.01em", color: "var(--text-1)", margin: 0, marginBottom: 4 }}>
+                Browse categories
+              </h2>
+              <p style={{ fontSize: 13, color: "var(--text-3)", margin: 0 }}>
+                Pick a service area to see its decision flow and product details.
+              </p>
+            </div>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))", gap: 12 }}>
+              {CATEGORIES.map(([key, cat]) => (
+                <button
+                  key={key}
+                  onClick={() => setActiveCategory(key)}
+                  style={{
+                    textAlign: "left",
+                    background: "var(--bg-1)",
+                    border: "1px solid var(--border)",
+                    borderRadius: "var(--radius-lg)",
+                    padding: "18px 18px 16px",
+                    cursor: "pointer",
+                    transition: "border-color .15s ease, background .15s ease",
+                    color: "var(--text-1)",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 12,
+                  }}
+                  onMouseEnter={e => {
+                    e.currentTarget.style.borderColor = "var(--border-strong)";
+                    e.currentTarget.style.background = "var(--bg-2)";
+                  }}
+                  onMouseLeave={e => {
+                    e.currentTarget.style.borderColor = "var(--border)";
+                    e.currentTarget.style.background = "var(--bg-1)";
+                  }}
+                >
+                  <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                      <span style={{ width: 8, height: 8, borderRadius: "50%", background: cat.color, flexShrink: 0 }} />
+                      <span style={{ fontWeight: 600, fontSize: 14.5, letterSpacing: "-0.01em" }}>{cat.label}</span>
+                    </div>
+                    <span className="mono" style={{ fontSize: 11, color: "var(--text-3)" }}>
+                      {String(cat.products.length).padStart(2, "0")}
+                    </span>
+                  </div>
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: 4 }}>
+                    {cat.products.slice(0, 4).map(p => (
+                      <span
+                        key={p.name}
+                        style={{
+                          fontSize: 11,
+                          padding: "3px 8px",
+                          background: "var(--bg-2)",
+                          color: "var(--text-2)",
+                          border: "1px solid var(--border)",
+                          borderRadius: 6,
+                        }}
+                      >
+                        {p.name}
+                      </span>
+                    ))}
+                    {cat.products.length > 4 && (
+                      <span style={{ fontSize: 11, padding: "3px 8px", color: "var(--text-3)" }}>
+                        +{cat.products.length - 4}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              ))}
+            </div>
           </div>
         )}
 
         {activeCat && searchTerm.length < 2 && (
-          <div style={{ animation: "fadeIn 0.2s ease" }}>
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <h2 style={{ fontSize: 16, fontFamily: "'Space Mono', monospace", color: activeCat.color }}>
-                {activeCat.icon} {activeCat.label} — Decision Flow
-              </h2>
-              <button onClick={() => setShowFlow(!showFlow)} style={{
-                background: "var(--bg-secondary)", border: "1px solid var(--bg-tertiary)", borderRadius: 6,
-                padding: "5px 12px", color: "var(--text-secondary)", cursor: "pointer", fontSize: 11, fontFamily: "'DM Mono', monospace",
-              }}>{showFlow ? "hide" : "show"} flow</button>
+          <div style={{ animation: "fadeIn 0.2s ease", maxWidth: 1080, margin: "0 auto" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 16, gap: 16, flexWrap: "wrap" }}>
+              <div>
+                <div className="eyebrow" style={{ color: activeCat.color, marginBottom: 4 }}>
+                  Decision flow
+                </div>
+                <h2 style={{ fontSize: 22, fontWeight: 600, letterSpacing: "-0.02em", color: "var(--text-1)", margin: 0 }}>
+                  {activeCat.label}
+                </h2>
+              </div>
+              <button
+                onClick={() => setShowFlow(!showFlow)}
+                style={{
+                  background: "var(--bg-1)",
+                  border: "1px solid var(--border)",
+                  borderRadius: "var(--radius-md)",
+                  padding: "6px 12px",
+                  color: "var(--text-2)",
+                  cursor: "pointer",
+                  fontSize: 12,
+                  fontWeight: 500,
+                }}
+              >
+                {showFlow ? "Hide" : "Show"} flow
+              </button>
             </div>
 
             {showFlow && (
               <div style={{
-                background: "var(--bg-secondary)", borderRadius: 12, padding: 16, marginBottom: 20,
-                border: `1px solid ${activeCat.color}22`, overflowX: "auto",
+                background: "var(--bg-1)",
+                borderRadius: "var(--radius-lg)",
+                padding: 20,
+                marginBottom: 28,
+                border: "1px solid var(--border)",
+                overflowX: "auto",
+                boxShadow: "var(--shadow-sm)",
               }}>
                 <FlowDiagram flow={activeCat.flow} color={activeCat.color} />
               </div>
             )}
 
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 10 }}>
-              <span style={{ fontSize: 13, fontWeight: 600, fontFamily: "'Space Mono', monospace" }}>Products ({activeCat.products.length})</span>
-              <button onClick={() => {
-                const allNames = activeCat.products.map(p => p.name);
-                const allExpanded = allNames.every(n => expandedProducts.has(n));
-                setExpandedProducts(prev => { const next = new Set(prev); allNames.forEach(n => allExpanded ? next.delete(n) : next.add(n)); return next; });
-              }} style={{ background: "none", border: "none", color: activeCat.color, cursor: "pointer", fontSize: 11, fontFamily: "'DM Mono', monospace" }}>
-                {activeCat.products.every(p => expandedProducts.has(p.name)) ? "collapse" : "expand"} all
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
+              <div>
+                <div className="eyebrow" style={{ marginBottom: 2 }}>Products</div>
+                <span style={{ fontSize: 14, fontWeight: 600, color: "var(--text-1)" }}>
+                  {activeCat.products.length} in this category
+                </span>
+              </div>
+              <button
+                onClick={() => {
+                  const allNames = activeCat.products.map(p => p.name);
+                  const allExpanded = allNames.every(n => expandedProducts.has(n));
+                  setExpandedProducts(prev => {
+                    const next = new Set(prev);
+                    allNames.forEach(n => allExpanded ? next.delete(n) : next.add(n));
+                    return next;
+                  });
+                }}
+                style={{
+                  background: "transparent",
+                  border: "none",
+                  color: activeCat.color,
+                  cursor: "pointer",
+                  fontSize: 12,
+                  fontWeight: 500,
+                }}
+              >
+                {activeCat.products.every(p => expandedProducts.has(p.name)) ? "Collapse all" : "Expand all"}
               </button>
             </div>
 
@@ -207,18 +354,27 @@ export default function GCPNavigator() {
         )}
       </div>
 
-      <div style={{
-        padding: "8px 24px", borderTop: "1px solid var(--bg-tertiary)", display: "flex", gap: 16,
-        alignItems: "center", flexWrap: "wrap", fontSize: 11, opacity: 0.5, fontFamily: "'DM Mono', monospace", flexShrink: 0,
+      {/* Footer / cost legend */}
+      <footer style={{
+        padding: "10px 32px",
+        borderTop: "1px solid var(--border)",
+        background: "var(--bg-0)",
+        display: "flex",
+        gap: 20,
+        alignItems: "center",
+        flexWrap: "wrap",
+        fontSize: 11.5,
+        color: "var(--text-3)",
+        flexShrink: 0,
       }}>
-        <span>Cost: </span>
+        <span className="eyebrow">Cost</span>
         {["$", "$$", "$$$", "$$$$", "$$$$$"].map((c, i) => (
-          <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 4 }}>
-            <CostDots cost={c} /> {["low", "mid", "high", "premium", "enterprise"][i]}
+          <span key={i} style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
+            <CostDots cost={c} />
+            <span>{["low", "mid", "high", "premium", "enterprise"][i]}</span>
           </span>
         ))}
-      </div>
+      </footer>
     </div>
   );
 }
-

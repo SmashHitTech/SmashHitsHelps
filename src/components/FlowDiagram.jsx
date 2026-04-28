@@ -4,7 +4,7 @@ export function FlowDiagram({ flow, color }) {
   if (!flow || flow.length === 0) return null;
   const [hoveredNode, setHoveredNode] = useState(null);
 
-  const nodeW = 140, nodeH = 40, gapY = 70;
+  const nodeW = 150, nodeH = 44, gapY = 76;
   const positions = {};
   const edges = [];
 
@@ -72,7 +72,7 @@ export function FlowDiagram({ flow, color }) {
     <svg width="100%" viewBox={`${minX} 0 ${svgW} ${svgH}`} style={{ maxHeight: 520, display: "block", margin: "0 auto" }}>
       <defs>
         <marker id={`arrow-${color.replace('#','')}`} viewBox="0 0 10 7" refX="10" refY="3.5" markerWidth="8" markerHeight="6" orient="auto-start-reverse">
-          <path d="M 0 0 L 10 3.5 L 0 7 z" fill={color} opacity="0.5" />
+          <path d="M 0 0 L 10 3.5 L 0 7 z" fill={color} opacity="0.65" />
         </marker>
       </defs>
       {edges.map((e, i) => {
@@ -86,12 +86,12 @@ export function FlowDiagram({ flow, color }) {
           <g key={i}>
             <path
               d={`M${x1},${y1} C${x1},${midY} ${x2},${midY} ${x2},${y2}`}
-              fill="none" stroke={color} strokeWidth="1.5" opacity="0.35"
+              fill="none" stroke={color} strokeWidth="1.5" opacity="0.45"
               markerEnd={`url(#arrow-${color.replace('#','')})`}
             />
             <text x={(x1 + x2) / 2 + (x2 > x1 ? 8 : -8)} y={midY - 4}
-              textAnchor="middle" fontSize="10" fill={color} fontWeight="700" opacity="0.7"
-              fontFamily="'DM Mono', monospace"
+              textAnchor="middle" fontSize="10" fill={color} fontWeight="600" opacity="0.85"
+              fontFamily="'JetBrains Mono', ui-monospace, monospace"
             >
               {e.label}
             </text>
@@ -111,19 +111,21 @@ export function FlowDiagram({ flow, color }) {
           >
             {isProduct ? (
               <rect x={pos.x - nodeW / 2} y={pos.y} width={nodeW} height={nodeH}
-                rx="8" fill={color} opacity={isHovered ? 1 : 0.9}
-                stroke={isHovered ? "#fff" : "none"} strokeWidth={isHovered ? 2 : 0}
+                rx="10" fill={color} opacity={isHovered ? 1 : 0.95}
+                stroke={isHovered ? color : "none"} strokeWidth={isHovered ? 0 : 0}
+                style={{ filter: isHovered ? `drop-shadow(0 4px 12px ${color}55)` : "none", transition: "filter .15s ease" }}
               />
             ) : (
               <rect x={pos.x - nodeW / 2} y={pos.y} width={nodeW} height={nodeH}
-                rx="8" fill={isHovered ? `${color}20` : "transparent"} stroke={color}
-                strokeWidth={isHovered ? 2.5 : 2} opacity={isHovered ? 0.9 : 0.5}
+                rx="10" fill={isHovered ? `${color}1f` : `${color}0d`} stroke={color}
+                strokeWidth={isHovered ? 2 : 1.5} opacity={isHovered ? 1 : 0.75}
               />
             )}
             <text x={pos.x} y={pos.y + nodeH / 2 + 1} textAnchor="middle" dominantBaseline="middle"
-              fontSize={isProduct ? "11" : "10"} fontWeight={isProduct ? "700" : "500"}
-              fill={isProduct ? "#fff" : color}
-              fontFamily="'DM Mono', monospace"
+              fontSize={isProduct ? "12" : "11.5"} fontWeight={isProduct ? "600" : "500"}
+              fill={isProduct ? "#ffffff" : color}
+              fontFamily="'Inter', system-ui, sans-serif"
+              letterSpacing="-0.01em"
               style={{ pointerEvents: "none" }}
             >
               {n.text}
@@ -142,16 +144,16 @@ export function FlowDiagram({ flow, color }) {
         return (
           <foreignObject x={tx} y={ty} width={maxW} height={h + 8} style={{ pointerEvents: "none", overflow: "visible" }}>
             <div style={{
-              background: "rgba(0,0,0,0.92)",
-              color: "#e8eaed",
+              background: "var(--bg-2)",
+              color: "var(--text-1)",
               borderRadius: 8,
-              padding: "10px",
-              fontSize: 11.5,
-              lineHeight: "1.4",
-              fontFamily: "'DM Sans', sans-serif",
+              padding: "10px 12px",
+              fontSize: 12,
+              lineHeight: 1.45,
+              fontFamily: "'Inter', system-ui, sans-serif",
               fontWeight: 400,
-              boxShadow: "0 4px 20px rgba(0,0,0,0.5)",
-              border: "1px solid rgba(255,255,255,0.1)",
+              boxShadow: "var(--shadow-md)",
+              border: "1px solid var(--border-strong)",
             }}>
               {hoveredFlow.tip}
             </div>
