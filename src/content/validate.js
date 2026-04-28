@@ -6,7 +6,6 @@ function validateCategory(key, cat) {
   const errors = [];
   if (!isRecord(cat)) errors.push(`Category "${key}" must be an object.`);
   if (!cat.label) errors.push(`Category "${key}" missing "label".`);
-  if (!cat.icon) errors.push(`Category "${key}" missing "icon".`);
   if (!cat.color) errors.push(`Category "${key}" missing "color".`);
   if (!Array.isArray(cat.flow)) errors.push(`Category "${key}" "flow" must be an array.`);
   if (!Array.isArray(cat.products)) errors.push(`Category "${key}" "products" must be an array.`);

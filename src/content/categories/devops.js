@@ -1,6 +1,5 @@
 export const devops = {
   label: "DevOps & CI/CD",
-  icon: "🔧",
   color: "#00ACC1",
   flow: [
     { id: "start", text: "Build / ship?", type: "decision", tip: "Are you building, testing, and deploying code? Or monitoring and observing what's already running in production?" },

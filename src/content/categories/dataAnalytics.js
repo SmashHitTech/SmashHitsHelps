@@ -1,6 +1,5 @@
 export const dataAnalytics = {
   label: "Data & Analytics",
-  icon: "📊",
   color: "#7B1FA2",
   flow: [
     { id: "start", text: "Query / warehouse?", type: "decision", tip: "Do you need to run SQL queries on large datasets for analytics, reporting, or dashboards? BigQuery is the go-to answer." },

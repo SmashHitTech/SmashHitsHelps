@@ -1,6 +1,5 @@
 export const serverless = {
   label: "Serverless & App",
-  icon: "☁️",
   color: "#673AB7",
   flow: [
     { id: "start", text: "API management?", type: "decision", tip: "Do you need to manage, secure, throttle, and monitor APIs? Or are you looking to orchestrate backend logic and workflows?" },

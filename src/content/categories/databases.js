@@ -1,6 +1,5 @@
 export const databases = {
   label: "Databases",
-  icon: "🗄️",
   color: "#FBBC04",
   flow: [
     { id: "start", text: "Relational?", type: "decision", tip: "Do you need SQL, ACID transactions, joins, foreign keys, and a fixed schema? If not, a NoSQL model may fit better." },

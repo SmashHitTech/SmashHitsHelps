@@ -1,6 +1,5 @@
 export const compute = {
   label: "Compute",
-  icon: "⚡",
   color: "#4285F4",
   flow: [
     { id: "start", text: "Containers?", type: "decision", tip: "Are you packaging your app as Docker/OCI containers? This drives whether you need orchestration or a simpler runtime." },

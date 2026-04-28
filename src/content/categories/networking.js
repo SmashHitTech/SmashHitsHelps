@@ -1,6 +1,5 @@
 export const networking = {
   label: "Networking",
-  icon: "🌐",
   color: "#34A853",
   flow: [
     { id: "start", text: "Traffic mgmt?", type: "decision", tip: "Do you need to distribute, accelerate, or cache traffic to your applications? Or is this about connectivity and core network infrastructure?" },

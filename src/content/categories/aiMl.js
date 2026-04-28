@@ -1,6 +1,5 @@
 export const aiMl = {
   label: "AI / ML",
-  icon: "🧠",
   color: "#E91E63",
   flow: [
     { id: "start", text: "Pre-trained API?", type: "decision", tip: "Can you use an existing model via API call (Vision, NLP, Speech, Gemini)? Or do you need to train/fine-tune your own model?" },

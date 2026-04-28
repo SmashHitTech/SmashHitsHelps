@@ -1,3 +1,4 @@
+import { ChevronRight } from "lucide-react";
 import { CostDots } from "./CostDots";
 
 export function ProductCard({ product, color, isExpanded, onToggle }) {
@@ -11,7 +12,9 @@ export function ProductCard({ product, color, isExpanded, onToggle }) {
           <span style={{ fontWeight: 700, fontSize: 15, color: "var(--text-primary)", fontFamily: "'Space Mono', monospace" }}>{product.name}</span>
           <span style={{ marginLeft: 10, fontSize: 12, opacity: 0.5, fontFamily: "'DM Sans', sans-serif" }}>{product.desc}</span>
         </div>
-        <span style={{ fontSize: 18, opacity: 0.4, transition: "transform 0.2s", transform: isExpanded ? "rotate(90deg)" : "rotate(0)" }}>›</span>
+        <span style={{ display: "inline-flex", color: "var(--text-secondary)", opacity: 0.6, transition: "transform 0.2s", transform: isExpanded ? "rotate(90deg)" : "rotate(0)" }}>
+          <ChevronRight size={16} strokeWidth={2} aria-hidden />
+        </span>
       </div>
       <div style={{ fontSize: 12, color: color, marginTop: 4, fontFamily: "'DM Sans', sans-serif" }}>{product.when}</div>
       {isExpanded && (
