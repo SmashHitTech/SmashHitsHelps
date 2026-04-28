@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Github, Globe, Search, X } from "lucide-react";
+import { Github, Search, X } from "lucide-react";
 import { CATEGORIES, GCP_DATA } from "../content";
 import { FlowDiagram } from "../components/FlowDiagram";
 import { ProductCard } from "../components/ProductCard";
@@ -85,15 +85,7 @@ export default function GCPNavigator() {
               </span>
             </div>
             <p style={{ fontSize: 12.5, color: "var(--text-3)", margin: 0, paddingLeft: 40 }}>
-              By Lydia Thomas for{" "}
-              <a
-                href="https://makeitasmash.com/"
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{ color: "var(--text-2)", fontWeight: 500, textDecoration: "none", borderBottom: "1px dashed var(--border-strong)" }}
-              >
-                Smash Hit Technologies
-              </a>
+              By Lydia Thomas
             </p>
           </div>
 
@@ -135,16 +127,6 @@ export default function GCPNavigator() {
               className="icon-btn"
             >
               <Github size={16} strokeWidth={2} aria-hidden />
-            </a>
-            <a
-              href="https://makeitasmash.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Smash Hit Technologies website"
-              title="makeitasmash.com"
-              className="icon-btn"
-            >
-              <Globe size={16} strokeWidth={2} aria-hidden />
             </a>
           </div>
         </div>
