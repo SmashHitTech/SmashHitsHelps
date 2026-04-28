@@ -1,6 +1,5 @@
 export const iotEdge = {
   label: "IoT & Edge",
-  icon: "📡",
   color: "#607D8B",
   flow: [
     { id: "start", text: "GCP at the edge?", type: "decision", tip: "Do you need to run GCP services outside of a standard GCP region — at a telco edge, on-premises, or in an air-gapped environment?" },

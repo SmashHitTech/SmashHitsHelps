@@ -1,10 +1,35 @@
 import { useEffect, useRef, useState } from "react";
-import { Github, Globe } from "lucide-react";
+import {
+  Github, Globe,
+  Cpu, HardDrive, Database, Network, BarChart3, Sparkles,
+  Shield, GitBranch, Cloud, Container, ArrowRightLeft, Radio,
+} from "lucide-react";
 import { CATEGORIES, GCP_DATA } from "../content";
 import { FlowDiagram } from "../components/FlowDiagram";
 import { ProductCard } from "../components/ProductCard";
 import { CostDots } from "../components/CostDots";
 import { GlobalStyles } from "../styles/GlobalStyles";
+
+const CATEGORY_ICONS = {
+  compute: Cpu,
+  storage: HardDrive,
+  databases: Database,
+  networking: Network,
+  data_analytics: BarChart3,
+  ai_ml: Sparkles,
+  security: Shield,
+  devops: GitBranch,
+  serverless: Cloud,
+  containers: Container,
+  migration: ArrowRightLeft,
+  iot_edge: Radio,
+};
+
+function CategoryIcon({ catKey, size = 14, color = "currentColor" }) {
+  const Icon = CATEGORY_ICONS[catKey];
+  if (!Icon) return null;
+  return <Icon size={size} strokeWidth={1.75} color={color} aria-hidden />;
+}
 
 export default function GCPNavigator() {
   const [activeCategory, setActiveCategory] = useState(null);
@@ -122,7 +147,7 @@ export default function GCPNavigator() {
                 display: "flex", alignItems: "center", gap: 6,
               }}
             >
-              <span style={{ fontSize: 14 }}>{cat.icon}</span>{cat.label}
+              <CategoryIcon catKey={key} size={14} />{cat.label}
             </button>
           ))}
         </div>
@@ -154,7 +179,9 @@ export default function GCPNavigator() {
                 onMouseEnter={e => { e.currentTarget.style.transform = "translateY(-2px)"; e.currentTarget.style.boxShadow = `0 8px 24px ${cat.color}22`; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = "translateY(0)"; e.currentTarget.style.boxShadow = "none"; }}
               >
-                <div style={{ fontSize: 28, marginBottom: 8 }}>{cat.icon}</div>
+                <div style={{ marginBottom: 12, color: cat.color, display: "inline-flex" }}>
+                  <CategoryIcon catKey={key} size={22} color={cat.color} />
+                </div>
                 <div style={{ fontWeight: 700, fontSize: 16, fontFamily: "'Space Mono', monospace", marginBottom: 6 }}>{cat.label}</div>
                 <div style={{ fontSize: 12, opacity: 0.5 }}>{cat.products.length} products</div>
                 <div style={{ marginTop: 10, display: "flex", flexWrap: "wrap", gap: 4 }}>
@@ -171,8 +198,9 @@ export default function GCPNavigator() {
         {activeCat && searchTerm.length < 2 && (
           <div style={{ animation: "fadeIn 0.2s ease" }}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
-              <h2 style={{ fontSize: 16, fontFamily: "'Space Mono', monospace", color: activeCat.color }}>
-                {activeCat.icon} {activeCat.label} — Decision Flow
+              <h2 style={{ fontSize: 16, fontFamily: "'Space Mono', monospace", color: activeCat.color, display: "inline-flex", alignItems: "center", gap: 8, margin: 0 }}>
+                <CategoryIcon catKey={activeCategory} size={16} color={activeCat.color} />
+                {activeCat.label} — Decision Flow
               </h2>
               <button onClick={() => setShowFlow(!showFlow)} style={{
                 background: "var(--bg-secondary)", border: "1px solid var(--bg-tertiary)", borderRadius: 6,

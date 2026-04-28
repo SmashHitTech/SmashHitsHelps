@@ -1,6 +1,5 @@
 export const migration = {
   label: "Migration",
-  icon: "🚚",
   color: "#795548",
   flow: [
     { id: "start", text: "VMs / apps?", type: "decision", tip: "Are you migrating virtual machines or applications? Or migrating databases and large datasets?" },

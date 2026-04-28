@@ -5,10 +5,10 @@ export function CostDots({ cost }) {
     <span style={{ display: "inline-flex", gap: 2 }}>
       {[1, 2, 3, 4, 5].map(i => (
         <span key={i} style={{
-          width: 8, height: 8, borderRadius: "50%",
-          background: i <= count ? "#4CAF50" : "var(--bg-tertiary)",
+          width: 7, height: 7, borderRadius: "50%",
+          background: i <= count ? "var(--text-secondary)" : "var(--bg-tertiary)",
           display: "inline-block",
-          opacity: i <= count ? 1 : 0.25,
+          opacity: i <= count ? 0.85 : 0.3,
         }} />
       ))}
     </span>

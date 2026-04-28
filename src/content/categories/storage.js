@@ -1,6 +1,5 @@
 export const storage = {
   label: "Storage",
-  icon: "💾",
   color: "#EA4335",
   flow: [
     { id: "start", text: "Object / blob?", type: "decision", tip: "Is your data unstructured files, images, backups, logs? Object storage is ideal for these. Otherwise you likely need block or file storage." },

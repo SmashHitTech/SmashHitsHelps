@@ -1,6 +1,5 @@
 export const security = {
   label: "Security & IAM",
-  icon: "🔒",
   color: "#FF6D00",
   flow: [
     { id: "start", text: "Identity / access?", type: "decision", tip: "Is this about controlling who/what can access your resources? Or about protecting data itself (encryption, secrets, threat detection)?" },

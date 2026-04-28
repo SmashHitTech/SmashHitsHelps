@@ -1,6 +1,5 @@
 export const containers = {
   label: "Containers & Mesh",
-  icon: "📦",
   color: "#0097A7",
   flow: [
     { id: "start", text: "Multi-cloud / hybrid?", type: "decision", tip: "Do you need Kubernetes running consistently across GCP, on-prem, AWS, or Azure? If not, you may need service mesh or fleet management for GKE clusters." },
